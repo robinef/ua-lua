@@ -9,8 +9,16 @@ LUA User-Agent detector
 Mac OSX install instructions
 
 ```
-brew install luarocks
-luarocks install json2lua
-brew install pcre
-luarocks install lrexlib-pcre
+cmd> brew install luarocks
+cmd> luarocks install json2lua
+cmd> brew install pcre
+cmd> luarocks install lrexlib-pcre
+
+```
+
+## TESTS
+
+```
+cmd> cd test
+cmd> luajit is_tablet.lua
 ```
