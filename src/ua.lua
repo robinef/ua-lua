@@ -1,8 +1,19 @@
-json = require('json')
-lib = require('rex_pcre')
-
 ua = {}
 ua.__index = ua
+
+--[[
+	Require lib json and regxp-pcre
+	@link http://luaforge.net/projects/json/
+	@link http://luaforge.net/projects/lrexlib/
+]]--
+local ok,json = pcall(require, "json")
+if not ok then
+    error("json module required")
+end
+local ok,lib = pcall(require, "rex_pcre")
+if not ok then
+    error("rex_pcre module required")
+end
 
 
 --[[
@@ -37,7 +48,7 @@ function ua.readAll(file)
 end
 
 --[[
-    Test if user agent is Iphone
+    Test if user agent is phone
     @param string userAgent
     @return bool
 ]]--
@@ -47,6 +58,57 @@ function ua:isPhone(userAgent)
             res = lib.match(userAgent, value)
             if res then
                 return true
+            end
+        end
+    end
+    return false
+end
+
+
+--[[
+    Test if user agent is iPad
+    @param string userAgent
+    @return bool
+]]--
+function ua:isIpad(userAgent)
+    if self.result then
+      	res = lib.match(userAgent, self.result['uaMatch']['tablets']['iPad'])
+        if res then
+           return true
+        end
+    end
+    return false
+end
+
+--[[
+    Test if user agent is iPhone
+    @param string userAgent
+    @return bool
+]]--
+function ua:isIphone(userAgent)
+    if self.result then
+      	res = lib.match(userAgent, self.result['uaMatch']['phones']['iPhone'])
+        if res then
+           return true
+        end
+    end
+    return false
+end
+
+--[[
+    Test if user agent is Tablet
+    @param string userAgent
+    @return bool
+]]--
+function ua:isMobile(userAgent)
+    
+    if self.result then
+        for key,value in pairs(self.result['uaMatch']) do
+        	for key2,value2 in pairs(value) do
+            	res = lib.match(userAgent, value2)
+            	if res then
+                	return true
+            	end
             end
         end
     end
@@ -70,3 +132,11 @@ function ua:isTablet(userAgent)
     end
     return false
 end
+
+--[[
+    Get device type
+    @param string userAgent
+    @return bool
+]]--
+
+return ua

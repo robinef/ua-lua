@@ -23,3 +23,8 @@ cmd> cd test
 cmd> luajit is_tablet.lua
 true
 ```
+
+
+## CREDITS
+
+Using json regexp config from http://mobiledetect.net/
