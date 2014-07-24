@@ -1,7 +1,4 @@
 {
     "name": "robinef/ua-lua",
-    "description": "Transform User Agent into device type",
-    "require": {
-        "lua": ">=5.1"
-    }
+    "description": "Transform User Agent into device type"
 }
