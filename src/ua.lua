@@ -56,7 +56,7 @@ function ua:isPhone(userAgent)
     if self.result then
         for key,value in pairs(self.result['uaMatch']['phones']) do
             res = lib.match(userAgent, value)
-            if res then
+	    if res ~= nil then
                 return true
             end
         end
@@ -73,7 +73,7 @@ end
 function ua:isIpad(userAgent)
     if self.result then
       	res = lib.match(userAgent, self.result['uaMatch']['tablets']['iPad'])
-        if res then
+	if res ~= nil then
            return true
         end
     end
@@ -88,7 +88,7 @@ end
 function ua:isIphone(userAgent)
     if self.result then
       	res = lib.match(userAgent, self.result['uaMatch']['phones']['iPhone'])
-        if res then
+	if res ~= nil then
            return true
         end
     end
@@ -96,7 +96,7 @@ function ua:isIphone(userAgent)
 end
 
 --[[
-    Test if user agent is Tablet
+    Test if user agent is Mobile
     @param string userAgent
     @return bool
 ]]--
@@ -106,7 +106,7 @@ function ua:isMobile(userAgent)
         for key,value in pairs(self.result['uaMatch']) do
         	for key2,value2 in pairs(value) do
             	res = lib.match(userAgent, value2)
-            	if res then
+		if res ~= nil then
                 	return true
             	end
             end
@@ -125,7 +125,7 @@ function ua:isTablet(userAgent)
     if self.result then
         for key,value in pairs(self.result['uaMatch']['tablets']) do
             res = lib.match(userAgent, value)
-            if res then
+            if res ~= nil then
                 return true
             end
         end
