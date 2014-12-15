@@ -1,0 +1,9 @@
+{
+	"version" : "1.0",
+	"osPattern" : "[a-zA-Z]+",
+	"versionPattern" : "[0-9.]+",
+	"osLookups" : {
+    	"Android" : "Android [0-9.]+",
+        "iOS" : "iOS [0-9.]+"
+    }
+}
