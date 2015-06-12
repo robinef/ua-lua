@@ -146,9 +146,9 @@ end
 
 --[[
     Return normalized Device Type
-    @param string userAget
+    @param string userAgent
     @return string
-        - full for Dektop and dektop bot
+        - full for Desktop and dekstop bot
         - mobile for phones and mobile bot
         - tablet for tablets
 ]]
