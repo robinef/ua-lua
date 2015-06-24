@@ -38,6 +38,10 @@ function ua.create(mobileDetectFile, osVersionFile)
             ualoc.osversions = json.decode(ualoc.content2)
         end
     end
+    ualoc.typesMap = {full='full', os='mobile', browsers='mobile', phones='mobile', 
+            tablets='tablet', Bot='full', MobileBot='mobile', DesktopMode='full',
+            TV='mobile', WebKit='mobile', Console='mobile', Watch='mobile'
+    }
     return ualoc
 end
 
@@ -112,12 +116,10 @@ end
 function ua:isMobile(userAgent)
     
     if self.result then
-        for key,value in pairs(self.result['uaMatch']) do
-        	for key2,value2 in pairs(value) do
-            	res = lib.match(userAgent, value2)
-		if res ~= nil then
-                	return true
-            	end
+        for key,value in pairs(self.result['uaMatch']['phones']) do
+           res = lib.match(userAgent, value)
+	       if res ~= nil then
+                return true
             end
         end
     end
@@ -141,6 +143,32 @@ function ua:isTablet(userAgent)
     end
     return false
 end
+
+--[[
+    Return normalized Device Type
+    @param string userAgent
+    @return string
+        - full for Desktop and dekstop bot
+        - mobile for phones and mobile bot
+        - tablet for tablets
+]]
+function ua:getDeviceType(userAgent)
+    if self.result == nil then
+        return nil
+    end
+    for uaType, values in pairs(self.result['uaMatch']) do
+        for device, regexp in pairs(values) do
+            if lib.match(userAgent, regexp) then
+                if uaType == 'utilities' then
+                    uaType = device
+                end
+                return self.typesMap[uaType]
+            end
+        end
+    end
+    return self.typesMap['full']
+end
+
 
 --[[
     Get OS from user-agent
